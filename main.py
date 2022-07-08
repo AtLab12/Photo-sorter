@@ -42,32 +42,48 @@ for filename in tqdm(os.listdir(test_path)):
 
                         lat = decimal_coords(img.gps_latitude, img.gps_latitude_ref)
                         lon = decimal_coords(img.gps_longitude, img.gps_longitude_ref)
-                        location = geolocator.reverse(str(lat) + "," + str(lon)).raw['address']
-                        year = get_year_from_date(img.datetime_original)
+                        try:
+                            location = geolocator.reverse(str(lat) + "," + str(lon)).raw['address']
+                        except:
+                            # internet to slow or other error
+                            pass
+                        file_date = img.datetime_original
+                        year = get_year_from_date(file_date)
                         has_country_info = country_key in location.keys()
                         file_name = src.name.split("/")[-1]
 
-                        if city_key in location.keys() and has_country_info:
-                            city = location[city_key]
+                        if has_country_info:
                             country = location[country_key]
-                            #print(year, " ", city, " ", country)
-                            loc.alocate_photo(year, location, city=city, country=country, originPath=src.name)
                         else:
-                            if tourism_key in location.keys() and has_country_info:
-                                tourism = location[tourism_key]
-                                country = location[country_key]
-                                #print(year, " ", tourism, " ", country)
-                                loc.alocate_photo(year, location, country=country, tourism=tourism, originPath=src.name)
-                            else:
-                                if municipality_key in location.keys() and has_country_info:
-                                    municipality = location[municipality_key]
-                                    country = location[country_key]
-                                    #print(year, " ", municipality, " ", country)
-                                    loc.alocate_photo(year, location, country=country, municipality=municipality, originPath=src.name)
-                                else:
-                                    # here handle no location data
-                                    #print(year, " ", location)
-                                    pass
+                            country = None
+
+                        if city_key in location.keys():
+                            city = location[city_key]
+                        else:
+                            city = None
+
+                        if tourism_key in location.keys():
+                            tourism = location[tourism_key]
+                        else:
+                            tourism = None
+
+                        if municipality_key in location.keys():
+                            municipality = location[municipality_key]
+                        else:
+                            municipality = None
+
+                        loc.alocate_photo(
+                            file_date,
+                            year,
+                            src.name,
+                            location,
+                            lat,
+                            lon,
+                            city=city,
+                            country=country,
+                            tourism=tourism,
+                            municipality=municipality
+                        )
 
                     else:
                         pass

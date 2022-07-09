@@ -4,73 +4,8 @@ from os import path
 import csv
 from enum import Enum
 import geopy.distance
+from config import config # python file containing only dictoary with custom config
 
-config = {
-    "United States": [
-        "Los Angeles",
-        "San Francisco",
-        "New York",
-        "Las Vegas"
-    ],
-    "Poland": [
-        "Tychy",
-        "Cielmice",
-        "Katowice",
-        "Ustroń",
-        "Warszawa",
-        "Dębki",
-        "Wrocław",
-        "Kraków",
-        "Lądek Zdrój",
-        "Wadowice",
-        "Andrychów",
-        "Lanckorona",
-        "Świnoujście",
-        "Raszyn",
-        "Busko",
-        "Karwia",
-        "Jastrzębia Góra",
-        "Biało Góra",
-        "Gdańsk",
-        "Borek Strzeliński",
-        "Cieszyn",
-        "Opole",
-        "Michałowice"
-    ],
-    "Italy": [
-        "Venice"
-    ],
-    "Netherlands": [
-        "Wassenaar",
-        "Amsterdam",
-        "Katwijk",
-        "Den Haag",
-        "Rotterdam",
-        "Leiden"
-    ],
-    "Austria": [
-        "Vien"
-    ],
-    "United Kingdom": [
-        "London",
-        "Cambridge",
-        "Baldock"
-    ],
-    "Norway": [
-        "Ulvik",
-        "Oslo",
-        "Bergen"
-    ],
-    "Tourism": [
-        "Duinrell"
-    ],
-    "Sweden": [
-
-    ]
-}
-
-
-# add "regions" that will be known by 4 coordinate systems and will have a name
 
 class Location_Type(Enum):
     City = 'city'
@@ -113,7 +48,7 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
 
     if parent_folder is None and municipality is not None:
         if municipality in config[country_name]:
-            parent_folder = municipality + "_" + year
+            parent_folder = "M_" + municipality + "_" + year
             name = municipality
             loc_type = Location_Type.Muniplicity
         else:
@@ -134,21 +69,11 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
 
         parent_path = os.path.join(master_path, parent_folder)
 
-        # add "regions" that will be known by 4 coordinate systems and will have a name
-
-        # correct "undecided" locations in same municipality
-        if loc_type is Location_Type.Muniplicity and path.exists(parent_path):
-            # czy istnieje atrakcja turystyczna w tym roku
-
-            # calculate average distance of photos that are known to be in a certain city
-            average_distance_from_set(parent_path, lat, lon)
-            # calculate average distance of photos that are known to be in a tourist attraction
-
         if not path.exists(parent_path):
             os.mkdir(parent_path, mode)
 
         os.replace(origin_path, parent_path + "/" + file_name)
-        add_photo_info(file_name, parent_path, year, name, file_date, loc_type, municipality, lat, lon)
+        add_photo_info(file_name, parent_path, year, name, file_date, loc_type, municipality, lon, lat)
 
     else:
         unknown_master_path = os.path.join(test_master_path, "unknown")
@@ -179,18 +104,19 @@ def get_country_name(country_code) -> str:
     return name
 
 
-def add_photo_info(file_name, parent_path, year, name, full_date, type: Location_Type, municipality=None, longitude=None, latitude=None):
+def add_photo_info(file_name, parent_path, year, name, full_date, type: Location_Type, municipality=None,
+                   longitude=None, latitude=None):
     path_to_info = parent_path + '/' + "photoInfo.csv"
-    parameters = ['File_name', 'Year', 'Name', 'Municipality', 'Full_date', 'Longitude', 'Latitude', 'Type']
+    parameters = ['File_name', 'Year', 'Name', 'Municipality', 'Full_date', 'Latitude', 'Longitude', 'Type']
     if path.exists(path_to_info):
         with open(path_to_info, 'a') as f:
             writer = csv.writer(f)
-            writer.writerow([file_name, year, name, municipality, full_date, longitude, latitude, type.value])
+            writer.writerow([file_name, year, name, municipality, full_date, latitude, longitude, type.value])
     else:
         with open(path_to_info, 'a') as f:
             writer = csv.writer(f)
             writer.writerow(parameters)
-            writer.writerow([file_name, year, name, municipality, full_date, longitude, latitude, type.value])
+            writer.writerow([file_name, year, name, municipality, full_date, latitude, longitude, type.value])
 
 
 def average_distance_from_set(folder_path, latitude, longitude):
@@ -205,3 +131,21 @@ def average_distance_from_set(folder_path, latitude, longitude):
             print(folder_path)
             print(geopy.distance.geodesic((latitude, longitude), (tmp_lat, tmp_lon)).km)
         pass
+
+
+def tourism_in_folder(path_a) -> (str, [str]):
+    result = False
+    tourist_files: [str] = []
+
+    for filename in os.listdir(path_a):
+        f = os.path.join(path_a, filename)
+        data_path = f + "/" + 'photoInfo.csv'
+
+        if path.exists(data_path):
+            df = pd.read_csv(data_path)
+            # print(df['Type'].tolist())
+            if 'tourism' in df['Type'].tolist():
+                print("has tourism in folder")
+                result = True
+                tourist_files.append(filename)
+    return result, tourist_files

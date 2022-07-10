@@ -5,6 +5,8 @@ import csv
 from enum import Enum
 import geopy.distance
 from config import config # python file containing only dictoary with custom config
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon
 
 
 class Location_Type(Enum):
@@ -12,6 +14,7 @@ class Location_Type(Enum):
     Tourism = 'tourism'
     Muniplicity = 'municipality'
     Country = 'country'
+    Zone = 'zone'
 
 
 # .value
@@ -27,7 +30,15 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
     loc_type = None
     name = None
 
-    # print(file_name)
+    point = Point(lat, lon)
+    for zone_name, points in config['Zones'].items():
+        zone = Polygon(points)
+        if zone.contains(point):
+            parent_folder = zone_name + "_" + year
+            name = zone_name
+            loc_type = Location_Type.Zone
+            break
+
     if city is not None:
         if city in config[country_name]:
             parent_folder = city + "_" + year
@@ -143,9 +154,7 @@ def tourism_in_folder(path_a) -> (str, [str]):
 
         if path.exists(data_path):
             df = pd.read_csv(data_path)
-            # print(df['Type'].tolist())
             if 'tourism' in df['Type'].tolist():
-                print("has tourism in folder")
                 result = True
                 tourist_files.append(filename)
     return result, tourist_files

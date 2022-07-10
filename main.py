@@ -3,9 +3,10 @@ from geopy.geocoders import Nominatim
 import os
 import Location_personalization as loc
 from tqdm import tqdm
+from os import path
 
-test_path = "/Users/mikolajzawada/Documents/Photos_to_sort/Official_test"
-#test_path = "/Users/mikolajzawada/Documents/Photos_to_sort/iPhone_2"
+#test_path = "/Users/mikolajzawada/Documents/Photos_to_sort/Official_test"
+test_path = "/Users/mikolajzawada/Documents/Photos_to_sort/iPhone_2"
 # unsorted_folder = input("Please provide path to folder you want to sort: ")
 geolocator = Nominatim(user_agent="AtLabPhotosorter")
 
@@ -96,14 +97,5 @@ def run_sort():
                     else:
                         pass
                         # print("no exif data")
-
-    # correct photos for existing tourist attractions
-    for year in years:
-        tourist_info = loc.tourism_in_folder(loc.test_master_path+'/'+year)
-        if tourist_info[0]:
-            pass
-        else:
-            pass
-
 
 run_sort()

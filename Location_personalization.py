@@ -4,7 +4,7 @@ from os import path
 import csv
 from enum import Enum
 import geopy.distance
-from config import config # python file containing only dictoary with custom config
+from config import config  # python file containing only dictoary with custom config
 from shapely.geometry import Point
 from shapely.geometry.polygon import Polygon
 
@@ -15,9 +15,6 @@ class Location_Type(Enum):
     Muniplicity = 'municipality'
     Country = 'country'
     Zone = 'zone'
-
-
-# .value
 
 test_master_path = "/Users/mikolajzawada/Documents/Photos_to_sort"
 
@@ -41,6 +38,7 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
 
     if city is not None:
         if city in config[country_name]:
+            print(city)
             parent_folder = city + "_" + year
             loc_type = Location_Type.City
             name = city
@@ -59,7 +57,7 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
 
     if parent_folder is None and municipality is not None:
         if municipality in config[country_name]:
-            parent_folder = "M_" + municipality + "_" + year
+            parent_folder = municipality + "_" + year
             name = municipality
             loc_type = Location_Type.Muniplicity
         else:
@@ -130,6 +128,7 @@ def add_photo_info(file_name, parent_path, year, name, full_date, type: Location
             writer.writerow([file_name, year, name, municipality, full_date, latitude, longitude, type.value])
 
 
+# delete if not end up using
 def average_distance_from_set(folder_path, latitude, longitude):
     path_to_data_file = folder_path + "/" + 'photoInfo.csv'
     if path.exists(path_to_data_file):

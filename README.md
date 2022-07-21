@@ -25,6 +25,7 @@
   - Fill dictionary with tourist attractions names you want to be stored seperately. For example if under "Tourism" you add "Universal City", all photos taken in Universal City will be placed in a folder Universal City_YEAR.
 * Supported file types
   - JPG, MOV, MP4, SRT(DJI)
+  - within the same file as config dictionary create path to timeline csv file called "path_to_timeline_csv"
 
 
 Example config dictionary:

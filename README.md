@@ -3,7 +3,7 @@
   <br>
   <img width="330" alt="SorterLogo" src="https://user-images.githubusercontent.com/40431386/178159216-f24445de-bd2f-472e-8330-efe2b81a3846.png">
   <br>
-  Location based image sorter
+  Location based media sorter
   <br>
 </h1>
 
@@ -23,6 +23,8 @@
   - Fill dictionary with cooridnates of boudries of special zones. For example, if you want to have all your photos taken inside your house and your garden in one folder for best accuracy create a zone (like in the example below) around your house and name it so in few years you will remember what you meant. 
 * Select tourist attractions
   - Fill dictionary with tourist attractions names you want to be stored seperately. For example if under "Tourism" you add "Universal City", all photos taken in Universal City will be placed in a folder Universal City_YEAR.
+* Supported file types
+  - JPG, MOV, MP4, SRT(DJI)
 
 
 Example config dictionary:

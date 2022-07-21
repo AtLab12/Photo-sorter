@@ -15,12 +15,64 @@
   <a href="#license">License</a>
 </p>
 
-![screenshot]()
-
 ## Key Features
 
-* Select cities of interest - 
-  - Description
+* Select cities of interest
+  - Fill dictionary with names of cities within countries your photos were taken. If a photo was taken in a city which name is not in a dictionary it will be placed in a folder with the coutry name and year. For example: Austria_2022
+* Select and name special zones
+  - Fill dictionary with cooridnates of boudries of special zones. For example, if you want to have all your photos taken inside your house and your garden in one folder for best accuracy create a zone (like in the example below) around your house and name it so in few years you will remember what you meant. 
+* Select tourist attractions
+  - Fill dictionary with tourist attractions names you want to be stored seperately. For example if under "Tourism" you add "Universal City", all photos taken in Universal City will be placed in a folder Universal City_YEAR.
+
+
+Example config dictionary:
+
+```bash
+
+config = {
+    "United States": [
+        "Los Angeles",
+        "San Francisco",
+        "New York",
+        "Las Vegas",
+        "Anchorage",
+        "Fairbanks",
+        "Whitter",
+        "Denver",
+        "Estes Park",
+        "Seattle"
+    ]
+    "Austria": [
+        "Vien"
+    ],
+    "United Kingdom": [
+        "London",
+        "Cambridge"
+    ],
+    "Canada": [
+        "Toronto",
+        "Vancouver"
+    ],
+    "Germany": [
+
+    ],
+    "Czech Republic": [
+        "Praha"
+    ],
+    "Tourism": [
+        "Universal City"
+    ],
+    "Zones": {
+        "Whitter": [
+            (60.788566, -148.817399),
+            (60.758982, -148.706227),
+            (60.757976, -148.632069),
+            (60.799709, -148.596020),
+            (60.795186, -148.826390)
+        ]
+    }
+}
+```
 
 ## How To Use
 
@@ -46,10 +98,5 @@ $ python3 main.py
 
 MIT
 
----
-
-> [amitmerchant.com](https://www.amitmerchant.com) &nbsp;&middot;&nbsp;
-> GitHub [@amitmerchant1990](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
-> Twitter [@amit_merchant](https://twitter.com/amit_merchant)
 
 

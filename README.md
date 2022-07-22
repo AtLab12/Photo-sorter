@@ -18,9 +18,9 @@
 ## Key Features
 
 * Select cities of interest
-  - Fill dictionary with names of cities within countries your photos were taken. If a photo was taken in a city which name is not in a dictionary it will be placed in a folder with the coutry name and year. For example: Austria_2022
+  - Fill dictionary with names of cities within countries your photos were taken in. If a photo was taken in a city which name is not in a dictionary it will be placed in a folder with the coutry name and year. For example: Austria_2022
 * Select and name special zones
-  - Fill dictionary with cooridnates of boudries of special zones. For example, if you want to have all your photos taken inside your house and your garden in one folder for best accuracy create a zone (like in the example below) around your house and name it so in few years you will remember what you meant. 
+  - Fill dictionary with cooridnates of boudries of special zones. For example, if you want to have all your photos, taken inside your house and your garden in one folder, for best accuracy create a zone (like in the example below) around your house. Remember to name it so in few years you will remember what you meant. 
 * Select tourist attractions
   - Fill dictionary with tourist attractions names you want to be stored seperately. For example if under "Tourism" you add "Universal City", all photos taken in Universal City will be placed in a folder Universal City_YEAR.
 * Supported file types

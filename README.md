@@ -92,7 +92,7 @@ $ cd Photo-sorter
 # Install dependencies
 
 # Run the script
-$ python3 main.py
+$ python3 addColumn.py
 
 # follow instructions
 ```

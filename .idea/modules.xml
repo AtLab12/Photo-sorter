@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../ImageHashing/.idea/ImageHashing.iml" filepath="$PROJECT_DIR$/../ImageHashing/.idea/ImageHashing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../JSONZoneCreator/.idea/JSONZoneCreator.iml" filepath="$PROJECT_DIR$/../JSONZoneCreator/.idea/JSONZoneCreator.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/PhotoSorter.iml" filepath="$PROJECT_DIR$/.idea/PhotoSorter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../modifyCSV/.idea/modifyCSV.iml" filepath="$PROJECT_DIR$/../modifyCSV/.idea/modifyCSV.iml" />
     </modules>
   </component>
 </project>

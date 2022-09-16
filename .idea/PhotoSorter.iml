@@ -6,5 +6,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="JSONZoneCreator" />
+    <orderEntry type="module" module-name="ImageHashing" />
+    <orderEntry type="module" module-name="modifyCSV" />
   </component>
 </module>

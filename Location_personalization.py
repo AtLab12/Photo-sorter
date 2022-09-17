@@ -18,7 +18,6 @@ class LocationType(Enum):
     Zone = 'zone'
     Neighbourhood = 'neighbourhood'
 
-
 def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, country=None, tourism=None, municipality=None,
                   neighbourhood=None, zone=None, isVideo=False):
     if country is not None:
@@ -85,9 +84,6 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
         else:
             parent_path = os.path.join(master_path, parent_folder)
 
-        if not path.exists(parent_path):
-            os.mkdir(parent_path, mode)
-
         if isVideo and not path.exists(full_parent_path):
             os.mkdir(full_parent_path, mode)
 
@@ -102,6 +98,7 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
 
     else:
         unknown_master_path = os.path.join(master_path, "unknown_location")
+
         if not path.exists(unknown_master_path):
             os.mkdir(unknown_master_path, mode)
 
@@ -110,15 +107,7 @@ def alocate_photo(file_date, year, origin_path, loc, lat, lon, city=None, countr
         if not path.exists(un_parent_path):
             os.mkdir(un_parent_path, mode)
 
-        os.replace(origin_path, un_parent_path + "/" + file_name)
-
-        with open(master_path + '/' + "sortLog.txt", 'a') as f:
-            f.write("\n")
-            f.write(file_name)
-            f.write("\n")
-            f.write(str(loc))
-            f.write("\n")
-
+        os.replace(origin_path, un_parent_path+"/"+file_name)
 
 def get_country_name(country_code) -> str:
     df = pd.read_csv('data.csv')
@@ -320,7 +309,6 @@ def file_in_zone(lat, lon, year, auto_zones, auto_zones_keys_sorted, ):
                 """
 
     return name
-
 
 def get_hash(img_path):
     with open(img_path, "rb") as f:

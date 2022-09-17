@@ -18,7 +18,7 @@ import multiprocessing as mp
 auto_zones = {}
 auto_zones_sorted_keys = None
 from_zone = 0
-geolocator = Nominatim(user_agent='Your choice')
+geolocator = Nominatim(user_agent="AtLabPhotosorter")
 
 zone_stage = True
 
@@ -34,7 +34,6 @@ def get_year_from_date(date) -> str:
     date_elements = date.split(" ")
     year = date_elements[0].split(":")[0]
     return year
-
 
 def sort_based_on_timeline_file():
     # change this from making a network call with lat and lon to automatically moving to
@@ -199,7 +198,6 @@ def sort_based_on_timeline_file():
         except:
             print("Failed to sort media")
 
-
 def menage_media(f):
     global zone_stage
     with open(f, 'rb') as src:
@@ -213,6 +211,12 @@ def menage_media(f):
                     file_date = img.datetime_original
                     year = get_year_from_date(file_date)
                     if "gps_latitude" in tags and "gps_longitude" in tags:
+
+                        city_key = 'city'
+                        country_key = 'country_code'
+                        tourism_key = 'tourism'
+                        municipality_key = 'municipality'
+
                         lat = decimal_coords(img.gps_latitude, img.gps_latitude_ref)
                         lon = decimal_coords(img.gps_longitude, img.gps_longitude_ref)
                         sort_with_location_data(
